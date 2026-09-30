@@ -1,5 +1,10 @@
-
 @import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+@import "@fontsource-variable/outfit";
+@import "@fontsource-variable/oswald";
+
+@custom-variant dark (&:is(.dark *));
 
 * {
   box-sizing: border-box;
@@ -15,3 +20,175 @@ body {
   margin: 0;
 }
 
+/* SportPesa Racing — navy + BWT pink */
+:root {
+  --background: #15206b;
+  --foreground: #ffffff;
+  --card: #1c2a82;
+  --card-foreground: #ffffff;
+  --popover: #1c2a82;
+  --popover-foreground: #ffffff;
+  --primary: #ec008c;
+  --primary-foreground: #ffffff;
+  --secondary: #243394;
+  --secondary-foreground: #ffffff;
+  --muted: #243394;
+  --muted-foreground: #b8c0e8;
+  --accent: #ec008c;
+  --accent-foreground: #ffffff;
+  --destructive: oklch(0.65 0.22 25);
+  --border: rgb(255 255 255 / 18%);
+  --input: rgb(255 255 255 / 22%);
+  --ring: #ec008c;
+  --chart-1: #ec008c;
+  --chart-2: #5b6fd6;
+  --chart-3: #ffffff;
+  --chart-4: #91a0f0;
+  --chart-5: #f472b6;
+  --radius: 0.625rem;
+  --sidebar: #121a55;
+  --sidebar-foreground: #ffffff;
+  --sidebar-primary: #ec008c;
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: #243394;
+  --sidebar-accent-foreground: #ffffff;
+  --sidebar-border: rgb(255 255 255 / 14%);
+  --sidebar-ring: #ec008c;
+  --brand-navy: #15206b;
+  --brand-navy-deep: #0c1345;
+  --brand-pink: #ec008c;
+  --brand-pink-hot: #ff2da8;
+}
+
+.dark {
+  --background: #0c1345;
+  --foreground: #ffffff;
+  --card: #15206b;
+  --card-foreground: #ffffff;
+  --popover: #15206b;
+  --popover-foreground: #ffffff;
+  --primary: #ec008c;
+  --primary-foreground: #ffffff;
+  --secondary: #1c2a82;
+  --secondary-foreground: #ffffff;
+  --muted: #1c2a82;
+  --muted-foreground: #b8c0e8;
+  --accent: #ec008c;
+  --accent-foreground: #ffffff;
+  --destructive: oklch(0.704 0.191 22.216);
+  --border: rgb(255 255 255 / 14%);
+  --input: rgb(255 255 255 / 18%);
+  --ring: #ec008c;
+  --sidebar: #0a1038;
+  --sidebar-foreground: #ffffff;
+  --sidebar-primary: #ec008c;
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: #1c2a82;
+  --sidebar-accent-foreground: #ffffff;
+  --sidebar-border: rgb(255 255 255 / 12%);
+  --sidebar-ring: #ec008c;
+}
+
+@theme inline {
+  --font-sans: 'Outfit Variable', sans-serif;
+  --font-heading: 'Oswald Variable', sans-serif;
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar: var(--sidebar);
+  --color-chart-5: var(--chart-5);
+  --color-chart-4: var(--chart-4);
+  --color-chart-3: var(--chart-3);
+  --color-chart-2: var(--chart-2);
+  --color-chart-1: var(--chart-1);
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  --color-foreground: var(--foreground);
+  --color-background: var(--background);
+  --color-brand-navy: var(--brand-navy);
+  --color-brand-navy-deep: var(--brand-navy-deep);
+  --color-brand-pink: var(--brand-pink);
+  --color-brand-pink-hot: var(--brand-pink-hot);
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+  --radius-2xl: calc(var(--radius) * 1.8);
+  --radius-3xl: calc(var(--radius) * 2.2);
+  --radius-4xl: calc(var(--radius) * 2.6);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+  }
+  button:not(:disabled),
+  [role='button']:not(:disabled) {
+    cursor: pointer;
+  }
+}
+
+@keyframes hero-rise {
+  from {
+    opacity: 0;
+    transform: translateY(1.25rem);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes hero-car-in {
+  from {
+    opacity: 0;
+    transform: translateX(4%) scale(1.06);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0) scale(1);
+  }
+}
+
+@keyframes hero-glow {
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 rgb(236 0 140 / 0%);
+  }
+  50% {
+    box-shadow: 0 0 28px 2px rgb(236 0 140 / 35%);
+  }
+}
+
+.hero-animate-rise {
+  animation: hero-rise 0.9s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.hero-animate-car {
+  animation: hero-car-in 1.25s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.hero-animate-glow {
+  animation: hero-glow 2.8s ease-in-out infinite;
+}
