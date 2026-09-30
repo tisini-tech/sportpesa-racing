@@ -20,8 +20,8 @@ export const fanSurveySchema = z.object({
   username: z
     .string()
     .trim()
-    .min(2, 'Username must be at least 2 characters')
-    .max(40, 'Username must be at most 40 characters'),
+    .min(2, 'Full name must be at least 2 characters')
+    .max(40, 'Full name must be at most 40 characters'),
   countryCode: z.string().min(1, 'Country code is required'),
   phone: kenyaPhoneSchema,
   age: z

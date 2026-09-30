@@ -197,7 +197,7 @@ export default function RegisterSection({
             </p>
             <p className="mt-2 text-sm text-[#dce3ff]/90">
               Thanks for registering. We&apos;ll be in touch about the mall tour.
-              Remember the username and phone number you used.
+              Remember the full name and phone number you used.
             </p>
             <Button
               type="button"
@@ -227,9 +227,9 @@ export default function RegisterSection({
                 children={(field) => (
                   <InputField
                     field={field}
-                    label={fields.username?.text ?? 'Username'}
-                    placeholder="Your username"
-                    autoComplete="username"
+                    label="Full name"
+                    placeholder="John Doe"
+                    autoComplete="name"
                     inputClassName={fieldInputClass}
                   />
                 )}
