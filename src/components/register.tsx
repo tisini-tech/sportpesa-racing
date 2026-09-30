@@ -1,6 +1,7 @@
 import { useMemo, useState } from 'react'
 import { useForm } from '@tanstack/react-form'
-import { Loader2Icon } from 'lucide-react'
+import { format, parseISO } from 'date-fns'
+import { CalendarIcon, Loader2Icon } from 'lucide-react'
 
 import { Button } from '#/components/ui/button'
 import { InputField } from '#/components/forms/input-field'
@@ -8,12 +9,18 @@ import {
   getDefaultCountry,
   PhoneField,
 } from '#/components/forms/phone-field'
+import { Calendar } from '#/components/ui/calendar'
 import {
   Field,
   FieldError,
   FieldGroup,
   FieldLabel,
 } from '#/components/ui/field'
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from '#/components/ui/popover'
 import { RadioGroup, RadioGroupItem } from '#/components/ui/radio-group'
 import {
   submitQuizFn,
@@ -37,6 +44,18 @@ import { cn } from '#/lib/utils'
 const fieldInputClass =
   'h-11 w-full min-w-0 rounded-xl border border-white/20 bg-white/10 px-3 text-base text-white outline-none transition-[color,box-shadow] placeholder:text-white/40 focus-visible:border-brand-pink focus-visible:ring-3 focus-visible:ring-brand-pink/30 md:text-sm'
 
+const today = new Date()
+const maxDob = new Date(
+  today.getFullYear() - 18,
+  today.getMonth(),
+  today.getDate(),
+)
+const minDob = new Date(
+  today.getFullYear() - 100,
+  today.getMonth(),
+  today.getDate(),
+)
+
 type RegisterSectionProps = {
   quizId: string
   questions: Question[]
@@ -50,6 +69,7 @@ export default function RegisterSection({
 }: RegisterSectionProps) {
   const [submitted, setSubmitted] = useState(false)
   const [submitError, setSubmitError] = useState<string | null>(null)
+  const [dobOpen, setDobOpen] = useState(false)
 
   const fields = useMemo(() => mapSurveyQuestions(questions), [questions])
   const defaultCountry = useMemo(
@@ -86,7 +106,7 @@ export default function RegisterSection({
       username: '',
       countryCode: defaultCountry?.telephone_code ?? '+254',
       phone: '',
-      age: '',
+      dateOfBirth: '',
       gender: '',
     },
     validators: {
@@ -133,7 +153,7 @@ export default function RegisterSection({
         },
         {
           questionId: fields.age.id,
-          textAnswer: value.age,
+          textAnswer: value.dateOfBirth,
           responseMs: 0,
           localId: crypto.randomUUID(),
         },
@@ -261,33 +281,58 @@ export default function RegisterSection({
               />
 
               <form.Field
-                name="age"
+                name="dateOfBirth"
                 children={(field) => {
                   const isInvalid =
                     field.state.meta.isTouched && !field.state.meta.isValid
+                  const selectedDate = field.state.value
+                    ? parseISO(field.state.value)
+                    : undefined
 
                   return (
                     <Field data-invalid={isInvalid ? true : undefined}>
-                      <FieldLabel htmlFor="age">
-                        {fields.age?.text ?? 'Age'}
+                      <FieldLabel htmlFor="dateOfBirth">
+                        Date of birth
                       </FieldLabel>
-                      <input
-                        id="age"
-                        name={field.name}
-                        type="text"
-                        inputMode="numeric"
-                        placeholder="e.g. 24"
-                        maxLength={3}
-                        value={field.state.value}
-                        onBlur={field.handleBlur}
-                        onChange={(event) => {
-                          field.handleChange(
-                            event.target.value.replace(/\D/g, '').slice(0, 3),
-                          )
-                        }}
-                        aria-invalid={isInvalid || undefined}
-                        className={fieldInputClass}
-                      />
+                      <Popover open={dobOpen} onOpenChange={setDobOpen}>
+                        <PopoverTrigger
+                          id="dateOfBirth"
+                          className={cn(
+                            fieldInputClass,
+                            'inline-flex items-center justify-between gap-2 text-left font-normal hover:bg-white/15',
+                            !field.state.value && 'text-white/40',
+                          )}
+                        >
+                          <span>
+                            {selectedDate
+                              ? format(selectedDate, 'dd MMM yyyy')
+                              : 'Pick a date'}
+                          </span>
+                          <CalendarIcon className="size-4 shrink-0 opacity-70" />
+                        </PopoverTrigger>
+                        <PopoverContent
+                          align="start"
+                          className="w-auto border border-white/15 bg-brand-navy-deep p-0 text-white shadow-xl"
+                        >
+                          <Calendar
+                            mode="single"
+                            captionLayout="dropdown"
+                            selected={selectedDate}
+                            defaultMonth={selectedDate ?? maxDob}
+                            startMonth={minDob}
+                            endMonth={maxDob}
+                            disabled={{ before: minDob, after: maxDob }}
+                            onSelect={(date) => {
+                              field.handleChange(
+                                date ? format(date, 'yyyy-MM-dd') : '',
+                              )
+                              field.handleBlur()
+                              setDobOpen(false)
+                            }}
+                            className="rounded-xl bg-brand-navy-deep text-white [--cell-radius:0.75rem]"
+                          />
+                        </PopoverContent>
+                      </Popover>
                       {isInvalid ? (
                         <FieldError
                           errors={

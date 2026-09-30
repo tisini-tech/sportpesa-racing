@@ -1,4 +1,5 @@
 import { z } from 'zod'
+import { differenceInYears, isValid, parseISO } from 'date-fns'
 
 const kenyaPhoneSchema = z
   .string()
@@ -24,15 +25,18 @@ export const fanSurveySchema = z.object({
     .max(40, 'Full name must be at most 40 characters'),
   countryCode: z.string().min(1, 'Country code is required'),
   phone: kenyaPhoneSchema,
-  age: z
+  dateOfBirth: z
     .string()
-    .trim()
-    .min(1, 'Age is required')
-    .regex(/^\d{1,3}$/, 'Enter a valid age')
+    .min(1, 'Date of birth is required')
     .refine((value) => {
-      const age = Number(value)
+      const date = parseISO(value)
+      return isValid(date)
+    }, 'Enter a valid date of birth')
+    .refine((value) => {
+      const date = parseISO(value)
+      const age = differenceInYears(new Date(), date)
       return age >= 18 && age <= 100
-    }, 'You must be between 18 and 100'),
+    }, 'You must be between 18 and 100 years old'),
   gender: z
     .union([
       z.literal(''),
