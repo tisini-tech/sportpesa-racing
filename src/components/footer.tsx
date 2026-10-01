@@ -11,9 +11,7 @@ export default function SiteFooter() {
             className="h-8 w-auto opacity-90"
           />
         </div>
-        <p className="text-sm">
-          © {year} SportPesa Racing. Mall tour fan registration.
-        </p>
+        <p className="text-sm">© {year} SportPesa Racing.</p>
       </div>
     </footer>
   )
