@@ -202,16 +202,8 @@ export default function RegisterSection({
       </div>
 
       <div className="relative mx-auto max-w-xl">
-        <h2 className="font-heading text-3xl font-semibold tracking-wide uppercase sm:text-4xl">
-          Fan registration
-        </h2>
-        <p className="mt-3 text-[#b8c4ef]/85">
-          Drop your details for a chance to see the SportPesa Racing car up
-          close.
-        </p>
-
         {submitted ? (
-          <div className="mt-10 rounded-2xl border border-brand-pink/40 bg-brand-pink/10 px-5 py-6 backdrop-blur-sm">
+          <div className="rounded-2xl border border-brand-pink/40 bg-brand-pink/10 px-5 py-6 backdrop-blur-sm">
             <p className="font-heading text-xl tracking-wide uppercase text-brand-pink-hot">
               You&apos;re in
             </p>
@@ -234,7 +226,6 @@ export default function RegisterSection({
           </div>
         ) : (
           <form
-            className="mt-10"
             onSubmit={(event) => {
               event.preventDefault()
               event.stopPropagation()

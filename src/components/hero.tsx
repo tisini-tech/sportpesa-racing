@@ -1,3 +1,5 @@
+import { ChevronRightIcon } from 'lucide-react'
+
 import { Button } from '#/components/ui/button'
 
 export default function HeroSection() {
@@ -19,42 +21,53 @@ export default function HeroSection() {
         />
       </div>
 
-      <div className="relative z-10 flex min-h-svh flex-col justify-end px-6 pb-14 pt-10 sm:px-10 sm:pb-16 md:justify-center md:px-14 lg:px-20 xl:px-24">
-        <div className="max-w-xl md:max-w-2xl">
+      <div className="relative z-10 flex min-h-svh flex-col px-5 py-12 sm:px-10 sm:py-16 md:px-14 md:py-20 lg:px-20 xl:px-24">
+        <div className="flex min-h-0 w-full max-w-[min(100%,42rem)] flex-1 flex-col justify-between gap-10 py-[clamp(0.5rem,4vh,2.5rem)]">
           <img
             src="/sport-pesa-racing-logo-white.png"
             alt="SportPesa Racing"
-            className="hero-animate-rise h-auto w-[min(100%,19rem)] opacity-90 sm:w-[min(100%,22rem)] md:w-[min(100%,26rem)]"
+            className="hero-animate-rise h-auto w-[min(100%,19rem)] shrink-0 opacity-90 sm:w-[min(100%,22rem)] md:w-[min(100%,26rem)]"
             style={{ animationDelay: '80ms' }}
           />
 
-          <h1
-            className="hero-animate-rise mt-8 font-heading text-[clamp(2.35rem,7vw,4.75rem)] leading-[0.95] font-semibold tracking-wide text-[#dce3ff] uppercase sm:mt-10"
-            style={{ animationDelay: '220ms' }}
-          >
-            The car is touring{' '}
-            <span className="text-brand-pink-hot">Kenyan malls</span>
-          </h1>
+          <div className="flex flex-col gap-6 sm:gap-8">
+            <h1
+              className="hero-animate-rise font-heading font-semibold tracking-[0.02em] uppercase"
+              style={{ animationDelay: '220ms' }}
+            >
+              <span className="block whitespace-nowrap text-[clamp(1.15rem,4.6vw+0.35rem,3.25rem)] leading-[1.05] text-white">
+                BEEN AROUND THE WORLD.
+              </span>
+              <span className="mt-3 block whitespace-nowrap text-[clamp(1.35rem,5.4vw+0.4rem,3.85rem)] leading-[1.05] text-brand-pink-hot sm:mt-4">
+                NOW HOME FOR GOOD.
+              </span>
+            </h1>
 
-          <p
-            className="hero-animate-rise mt-5 max-w-md text-base leading-relaxed text-[#b8c4ef]/85 sm:text-lg"
-            style={{ animationDelay: '360ms' }}
-          >
-            Register for your chance to see the SportPesa Racing car up close
-            and take photos with the legend.
-          </p>
+            <p
+              className="hero-animate-rise font-heading text-[clamp(0.7rem,1.6vw+0.35rem,1.05rem)] font-semibold tracking-[0.04em] text-white uppercase"
+              style={{ animationDelay: '360ms' }}
+            >
+              <span className="block whitespace-nowrap">
+                GET UP CLOSE AND PERSONAL
+              </span>
+              <span className="mt-1.5 block whitespace-nowrap">
+                WITH A PIECE OF RACING HISTORY.
+              </span>
+            </p>
+          </div>
 
           <div
-            className="hero-animate-rise mt-8 flex flex-wrap items-center gap-3"
+            className="hero-animate-rise flex shrink-0 flex-wrap items-center gap-3"
             style={{ animationDelay: '480ms' }}
           >
             <Button
               render={<a href="#register" />}
               nativeButton={false}
               size="lg"
-              className="hero-animate-glow h-12 rounded-full bg-brand-pink px-8 text-base font-semibold tracking-wide text-white hover:bg-brand-pink-hot"
+              className="hero-animate-glow h-12 rounded-full bg-brand-pink px-8 text-base font-semibold tracking-wide text-white uppercase hover:bg-brand-pink-hot"
             >
-              Register to view the car
+              REGISTER NOW
+              <ChevronRightIcon className="size-5" aria-hidden />
             </Button>
           </div>
         </div>
