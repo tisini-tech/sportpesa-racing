@@ -205,11 +205,14 @@ export default function RegisterSection({
         {submitted ? (
           <div className="rounded-2xl border border-brand-pink/40 bg-brand-pink/10 px-5 py-6 backdrop-blur-sm">
             <p className="font-heading text-xl tracking-wide uppercase text-brand-pink-hot">
-              You&apos;re in
+              🏎‍🟀 YOU&apos;RE IN!
             </p>
             <p className="mt-2 text-sm text-[#dce3ff]/90">
-              Thanks for registering. We&apos;ll be in touch about the mall tour.
-              Remember the full name and phone number you used.
+              Welcome to SportPesa Racing experience! Enjoy your moment with a
+              piece of Formula 1 history. Snap it. Share it!
+            </p>
+            <p className="mt-3 text-sm font-semibold tracking-wide text-brand-pink-hot">
+              #SportPesaRacing #HomeForGood
             </p>
             <Button
               type="button"
