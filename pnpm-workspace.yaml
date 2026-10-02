@@ -2,3 +2,5 @@ allowBuilds:
   esbuild: true
   lightningcss: true
   unrs-resolver: true
+overrides:
+  '@tanstack/start-server-core': '>=1.169.39'
