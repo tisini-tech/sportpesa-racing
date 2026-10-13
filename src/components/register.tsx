@@ -34,6 +34,7 @@ import {
   type GenderValue,
 } from '#/lib/schemas'
 import {
+  consentChoiceId,
   defaultNoChoiceId,
   genderChoiceId,
   mapSurveyQuestions,
@@ -108,6 +109,7 @@ export default function RegisterSection({
       phone: '',
       dateOfBirth: '',
       gender: '',
+      consent: false,
     },
     validators: {
       onSubmit: fanSurveySchema,
@@ -120,7 +122,8 @@ export default function RegisterSection({
         !fields.phone ||
         !fields.age ||
         !fields.gender ||
-        !fields.isUsed
+        !fields.isUsed ||
+        !fields.consent
       ) {
         setSubmitError('Survey questions are missing. Please refresh the page.')
         return
@@ -132,8 +135,9 @@ export default function RegisterSection({
         genderChoiceId(fields.gender, value.gender as GenderValue)
 
       const noChoiceId = defaultNoChoiceId(fields.isUsed)
+      const contactChoiceId = consentChoiceId(fields.consent, value.consent)
 
-      if (!genderId || !noChoiceId) {
+      if (!genderId || !noChoiceId || !contactChoiceId) {
         setSubmitError('Could not match survey choices. Please refresh.')
         return
       }
@@ -167,6 +171,12 @@ export default function RegisterSection({
         {
           questionId: fields.gender.id,
           choiceIds: [genderId],
+          responseMs: 0,
+          localId: crypto.randomUUID(),
+        },
+        {
+          questionId: fields.consent.id,
+          choiceIds: [contactChoiceId],
           responseMs: 0,
           localId: crypto.randomUUID(),
         },
@@ -393,6 +403,36 @@ export default function RegisterSection({
                     </Field>
                   )
                 }}
+              />
+
+              <form.Field
+                name="consent"
+                children={(field) => (
+                  <label
+                    htmlFor="consent"
+                    className={cn(
+                      'flex cursor-pointer items-start gap-3 rounded-xl border border-white/15 bg-white/5 px-3 py-3 backdrop-blur-sm transition-colors',
+                      'hover:border-brand-pink/50 hover:bg-white/10',
+                      field.state.value &&
+                        'border-brand-pink/60 bg-brand-pink/10',
+                    )}
+                  >
+                    <input
+                      id="consent"
+                      name={field.name}
+                      type="checkbox"
+                      checked={field.state.value}
+                      onBlur={field.handleBlur}
+                      onChange={(event) => {
+                        field.handleChange(event.target.checked)
+                      }}
+                      className="mt-0.5 size-4 shrink-0 accent-brand-pink"
+                    />
+                    <span className="text-sm text-[#dce3ff]">
+                      {fields.consent?.text ?? 'Do you agree to be contacted?'}
+                    </span>
+                  </label>
+                )}
               />
 
               {submitError ? (

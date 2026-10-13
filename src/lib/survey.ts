@@ -35,6 +35,7 @@ export type SurveyFieldMap = {
   age?: Question
   isUsed?: Question
   gender?: Question
+  consent?: Question
 }
 
 export function mapSurveyQuestions(questions: Question[]): SurveyFieldMap {
@@ -44,6 +45,7 @@ export function mapSurveyQuestions(questions: Question[]): SurveyFieldMap {
     age: findQuestion(questions, 'Age'),
     isUsed: findQuestion(questions, 'Is used'),
     gender: findQuestion(questions, 'Gender'),
+    consent: findQuestion(questions, 'Do you agree to be contacted?'),
   }
 }
 
@@ -58,4 +60,11 @@ export function defaultNoChoiceId(
   isUsedQuestion: Question | undefined,
 ): number | undefined {
   return findChoice(isUsedQuestion, 'No')?.id
+}
+
+export function consentChoiceId(
+  consentQuestion: Question | undefined,
+  agreed: boolean,
+): number | undefined {
+  return findChoice(consentQuestion, agreed ? 'Yes' : 'No')?.id
 }

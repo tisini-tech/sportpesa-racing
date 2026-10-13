@@ -45,6 +45,7 @@ export const fanSurveySchema = z.object({
     .refine((value): value is GenderValue => value !== '', {
       message: 'Select your gender',
     }),
+  consent: z.boolean(),
 })
 
 export type FanSurveyValues = z.infer<typeof fanSurveySchema>
